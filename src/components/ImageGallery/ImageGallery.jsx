@@ -15,17 +15,18 @@ export class ImageGallery extends Component {
         showModal: false,
         modalImg: '',
         alt: '',
-        page: 1
+        page: 1,
     }
 
     componentDidUpdate(prevProps, prevState) {
-    const prevSearchQuery = prevProps.searchQuery;
-    const updatedSearchQuery = this.props.searchQuery;
-     
-        if (prevSearchQuery !== updatedSearchQuery) {
+        const prevSearchQuery = prevProps.searchQuery;
+        const nextSearchQuery = this.props.searchQuery;
+
+        if (prevSearchQuery !== nextSearchQuery) {
             
             this.setState({ status: 'pending' });
-                        fetchImg(updatedSearchQuery, 1)
+            
+            fetchImg(nextSearchQuery, 1)
                 .then(response => this.setState(prevState => {
                     return {
                         response: response.hits,
@@ -34,9 +35,9 @@ export class ImageGallery extends Component {
                     }
                 }))
                 .catch(error => this.setState({ error, status: 'rejected' }));
-        }
-    }
-    
+        };
+    };
+
     toggleModal = () => {
         this.setState(state => ({
             showModal: !state.showModal,

@@ -1,18 +1,18 @@
 import { Component } from "react";
 import { createPortal } from "react-dom";
 import PropTypes from 'prop-types';
-import { Overlay, ModalContainer } from "./Modal.styled";
+import { Overlay, ModalShow } from "./Modal.styled";
 
-const modalRoot = document.querySelector('#modal-root');
+const modal = document.querySelector('#modal-root');
 
 export class Modal extends Component {
 
     componentDidMount() {
-        window.addEventListener('keydown', this.handleKeyDown)
+        window.addEventListener ('keydown', this.handleKeyDown)
     };
 
     componentWillUnmount() {
-        window.removeEventListener('keydown', this.handleKeyDown)
+        window.removeEventListener ('keydown', this.handleKeyDown)
     };
 
     handleKeyDown = event => {
@@ -28,16 +28,15 @@ export class Modal extends Component {
     }
 
     render() {
-        return (
-            createPortal(
+        return( createPortal(
                 <Overlay
                     onClick={this.handleBackdropClick}>
-                    <ModalContainer>
+                    <ModalShow>
                         {this.props.children}
-                    </ModalContainer>
+                    </ModalShow>
                 </Overlay>,
-                modalRoot
-            )
+                modal
+        )
         )
     }
     
